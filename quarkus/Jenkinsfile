@@ -52,7 +52,7 @@ spec:
                     sh 'echo "hahahahahhah"'
                 }
             } catch (e) {
-                sh 'echo "hohohohohoh---->>>>>>>'
+                sh 'echo "hohohohohoh---->>>>>>>"'
             }
         }
 
