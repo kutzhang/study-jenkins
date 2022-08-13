@@ -45,6 +45,15 @@ spec:
 
         stage('Prepare') {
             currentBuild.displayName = version
+
+            try {
+                container('kubernetes') {
+                    sh 'kubectl get deployments -n infra xxxx'
+                    sh 'echo "hahahahahhah"'
+                }
+            } catch (e) {
+                sh 'echo "hohohohohoh---->>>>>>>'
+            }
         }
 
         stage('Clone codes') {
