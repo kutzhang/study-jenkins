@@ -1,0 +1,73 @@
+podTemplate(yaml:"""
+kind: Pod
+spec:
+  containers:
+  - name: kaniko
+    image: gcr.io/kaniko-project/executor:debug
+    imagePullPolicy: Always
+    command:
+    - cat
+    tty: true
+    volumeMounts:
+      - name: registry-secret
+        mountPath: /kaniko/.docker
+      - name: maven-home
+        mountPath: /home/jenkins
+  - name: graalvm
+    image: ghcr.io/graalvm/native-image:22.2.0
+    imagePullPolicy: Always
+    command:
+    - cat
+    tty: true
+    volumeMounts:
+      - name: maven-home
+        mountPath: /root/.m2
+  - name: kubernetes
+    image: kutzhang/kubectl:1.24
+    imagePullPolicy: Always
+    tty: true
+    command:
+    - cat
+  volumes:
+    - name: maven-home
+      persistentVolumeClaim:
+        claimName: maven-repo-storage
+    - name: registry-secret
+      secret:
+        secretName: harbor-registry-client
+        items:
+          - key: .dockerconfigjson
+            path: config.json
+"""
+  ) {
+    node(POD_LABEL) {
+        def version = new Date().format("yyyyMMddHHmmss")
+
+        stage('Prepare') {
+            currentBuild.displayName = version
+        }
+
+        stage('Clone codes') {
+            git url:params.GIT_URL, branch:params.GIT_BRANCH
+        }
+
+        stage('Build') {
+            container('graalvm') {
+                sh './mvnw clean'
+                sh './mvnw package -Pnative'
+            }
+        }
+
+        stage('Build image') {
+            container('kaniko') {
+                sh "/kaniko/executor --skip-tls-verify --dockerfile=./src/main/docker/Dockerfile.native -c . --destination=harbor.infra.sanlea.com/kutzhang/${params.IMAGE_NAME}:${version}"
+            }
+        }
+
+        stage('Deploy') {
+            container('kubernetes') {
+                sh 'kubectl get pod -n infra'
+            }
+        }
+    }
+}
