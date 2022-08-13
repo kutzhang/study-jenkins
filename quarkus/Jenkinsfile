@@ -45,6 +45,7 @@ spec:
 
         stage('Prepare') {
             currentBuild.displayName = version
+            sh 'ls -l'
         }
 
         stage('Clone codes') {
