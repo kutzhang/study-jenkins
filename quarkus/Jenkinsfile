@@ -51,9 +51,9 @@ spec:
             git url:params.GIT_URL, branch:params.GIT_BRANCH
             dir('tools') {
                 git url:params.GIT_URL, branch:params.GIT_BRANCH
-                sh 'ls -l'
-                sh 'ls tools'
             }
+            sh 'ls -l'
+            sh 'ls tools'
         }
 
         stage('Build') {
