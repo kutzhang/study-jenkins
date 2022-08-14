@@ -1,6 +1,7 @@
 podTemplate(yaml:"""
 kind: Pod
 spec:
+  serviceAccountName: jenkins-deployer
   containers:
   - name: kaniko
     image: harbor.infra.sanlea.com/infra/kaniko-executor:debug
