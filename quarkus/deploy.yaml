@@ -24,7 +24,7 @@ spec:
           image: harbor.infra.sanlea.com/kutzhang/${APP_NAME}:${BUILD_DISPLAY_NAME}
           resources:
             requests:
-              cpu: 100m
+              cpu: 50m
               memory: 200Mi
             limits:
               cpu: 200m
