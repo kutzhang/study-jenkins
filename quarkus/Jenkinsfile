@@ -44,28 +44,18 @@ spec:
     node(POD_LABEL) {
         def version = new Date().format("yyyyMMddHHmmss")
 
-        stage('Prepare') {
+        stage('Initialize') {
             currentBuild.displayName = version
-
-            sh 'env'
-
-            try {
-                container('kubernetes') {
-                    sh 'kubectl get deployments -n infra xxxx'
-                    sh 'echo "hahahahahhah"'
-                }
-            } catch (e) {
-                sh 'echo "hohohohohoh---->>>>>>>"'
-            }
         }
 
         stage('Clone codes') {
-            git url:params.GIT_URL, branch:params.GIT_BRANCH
-            dir('tools') {
-                git url:params.GIT_URL, branch:params.GIT_BRANCH
+            git url:env.GIT_URL, branch:env.GIT_BRANCH
+        }
+
+        stage('Prepare CD') {
+            dir('cd') {
+                git url:"https://github.com/kutzhang/study-jenkins.git", branch:"main"
             }
-            sh 'ls -l'
-            sh 'ls tools'
         }
 
         stage('Build') {
@@ -77,14 +67,20 @@ spec:
 
         stage('Build image') {
             container('kaniko') {
-                sh "/kaniko/executor --skip-tls-verify --dockerfile=./src/main/docker/Dockerfile.jvm -c . --destination=harbor.infra.sanlea.com/kutzhang/${params.APP_NAME}:${version}"
+                sh "/kaniko/executor --skip-tls-verify --dockerfile=./src/main/docker/Dockerfile.jvm -c . --destination=harbor.infra.sanlea.com/kutzhang/${env.APP_NAME}:${version}"
             }
         }
 
         stage('Deploy') {
             container('kubernetes') {
-                sh 'kubectl get pod -n infra'
-                sh 'kubectl get node -o wide'
+                try {
+                    container('kubernetes') {
+                        sh "kubectl get deployments -n ${env.DEPLOY_NAMESPACE} ${env.APP_NAME}"
+                        sh "kubectl set image deployment -n ${env.DEPLOY_NAMESPACE} ${env.APP_NAME} ${env.APP_NAME}=harbor.infra.sanlea.com/kutzhang/${env.APP_NAME}:${version}"
+                    }
+                } catch (e) {
+                    sh 'envsubst < cd/deploy.yaml | kubectl apply -f -'
+                }
             }
         }
     }
