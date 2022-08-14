@@ -82,6 +82,7 @@ spec:
         stage('Deploy') {
             container('kubernetes') {
                 sh 'kubectl get pod -n infra'
+                sh 'kubectl get node -o wide'
             }
         }
     }
