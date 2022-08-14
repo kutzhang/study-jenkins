@@ -4,7 +4,7 @@ spec:
   containers:
   - name: kaniko
     image: gcr.io/kaniko-project/executor:debug
-    imagePullPolicy: Always
+    imagePullPolicy: IfNotPresent
     command:
     - cat
     tty: true
@@ -15,7 +15,7 @@ spec:
         mountPath: /home/jenkins
   - name: graalvm
     image: ghcr.io/graalvm/native-image:22.2.0
-    imagePullPolicy: Always
+    imagePullPolicy: IfNotPresent
     command:
     - cat
     tty: true
@@ -24,7 +24,7 @@ spec:
         mountPath: /root/.m2
   - name: kubernetes
     image: kutzhang/kubectl:1.24
-    imagePullPolicy: Always
+    imagePullPolicy: IfNotPresent
     tty: true
     command:
     - cat
