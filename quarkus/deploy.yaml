@@ -34,7 +34,7 @@ spec:
               path: /q/health/live
               port: 8080
             initialDelaySeconds: 20
-            timeoutSeconds: 2
+            timeoutSeconds: 3
             successThreshold: 1
             failureThreshold: 3
             periodSeconds: 10
@@ -43,7 +43,7 @@ spec:
               path: /q/health/ready
               port: 8080
             initialDelaySeconds: 20
-            timeoutSeconds: 2
+            timeoutSeconds: 3
             successThreshold: 1
             failureThreshold: 3
             periodSeconds: 10
