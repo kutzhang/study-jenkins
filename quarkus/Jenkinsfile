@@ -29,6 +29,12 @@ spec:
     tty: true
     command:
     - cat
+  - name: busybox
+    image: busybox:1.34.1
+    imagePullPolicy: IfNotPresent
+    tty: true
+    command:
+    - cat
   volumes:
     - name: maven-home
       persistentVolumeClaim:
@@ -79,7 +85,10 @@ spec:
                     sh "kubectl set image deployment -n ${env.DEPLOY_NAMESPACE} ${env.APP_NAME} ${env.APP_NAME}=harbor.infra.sanlea.com/kutzhang/${env.APP_NAME}:${version}"
                 }
             } catch (e) {
-                sh 'envsubst < cd/quarkus/deploy.yaml > deploy.yaml'
+                container('busybox') {
+                    sh 'envsubst < cd/quarkus/deploy.yaml > deploy.yaml'
+                }
+                
                 container('kubernetes') {
                     sh "kubectl apply -f ./deploy.yaml -n ${env.DEPLOY_NAMESPACE}"
                 }
