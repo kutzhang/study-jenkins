@@ -73,14 +73,15 @@ spec:
         }
 
         stage('Deploy') {
-            container('kubernetes') {
-                try {
-                    container('kubernetes') {
-                        sh "kubectl get deployments -n ${env.DEPLOY_NAMESPACE} ${env.APP_NAME}"
-                        sh "kubectl set image deployment -n ${env.DEPLOY_NAMESPACE} ${env.APP_NAME} ${env.APP_NAME}=harbor.infra.sanlea.com/kutzhang/${env.APP_NAME}:${version}"
-                    }
-                } catch (e) {
-                    sh 'envsubst < cd/quarkus/deploy.yaml | kubectl apply -f -'
+            try {
+                container('kubernetes') {
+                    sh "kubectl get deployments -n ${env.DEPLOY_NAMESPACE} ${env.APP_NAME}"
+                    sh "kubectl set image deployment -n ${env.DEPLOY_NAMESPACE} ${env.APP_NAME} ${env.APP_NAME}=harbor.infra.sanlea.com/kutzhang/${env.APP_NAME}:${version}"
+                }
+            } catch (e) {
+                sh 'envsubst < cd/quarkus/deploy.yaml > deploy.yaml'
+                container('kubernetes') {
+                    sh "kubectl apply -f ./deploy.yaml -n ${env.DEPLOY_NAMESPACE}"
                 }
             }
         }
