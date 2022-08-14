@@ -24,16 +24,16 @@ spec:
           image: harbor.infra.sanlea.com/kutzhang/${APP_NAME}:${BUILD_DISPLAY_NAME}
           resources:
             requests:
-              cpu: 50m
-              memory: 200Mi
+              cpu: 100m
+              memory: 250Mi
             limits:
               cpu: 200m
-              memory: 400Mi
+              memory: 500Mi
           livenessProbe:
             httpGet:
               path: /q/health/live
               port: 8080
-            initialDelaySeconds: 10
+            initialDelaySeconds: 20
             timeoutSeconds: 2
             successThreshold: 1
             failureThreshold: 3
@@ -42,7 +42,7 @@ spec:
             httpGet:
               path: /q/health/ready
               port: 8080
-            initialDelaySeconds: 10
+            initialDelaySeconds: 20
             timeoutSeconds: 2
             successThreshold: 1
             failureThreshold: 3
