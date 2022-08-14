@@ -68,13 +68,13 @@ spec:
         stage('Build') {
             container('graalvm') {
                 sh './mvnw clean'
-                sh './mvnw package'
+                sh './mvnw package -Pnative'
             }
         }
 
         stage('Build image') {
             container('kaniko') {
-                sh "/kaniko/executor --skip-tls-verify --dockerfile=./src/main/docker/Dockerfile.jvm -c . --destination=harbor.infra.sanlea.com/kutzhang/${env.APP_NAME}:${version}"
+                sh "/kaniko/executor --skip-tls-verify --dockerfile=./src/main/docker/Dockerfile.native -c . --destination=harbor.infra.sanlea.com/kutzhang/${env.APP_NAME}:${version}"
             }
         }
 
