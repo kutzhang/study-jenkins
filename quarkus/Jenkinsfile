@@ -80,7 +80,7 @@ spec:
                         sh "kubectl set image deployment -n ${env.DEPLOY_NAMESPACE} ${env.APP_NAME} ${env.APP_NAME}=harbor.infra.sanlea.com/kutzhang/${env.APP_NAME}:${version}"
                     }
                 } catch (e) {
-                    sh 'envsubst < cd/deploy.yaml | kubectl apply -f -'
+                    sh 'envsubst < cd/quarkus/deploy.yaml | kubectl apply -f -'
                 }
             }
         }
