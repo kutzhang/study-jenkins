@@ -93,6 +93,10 @@ spec:
                     sh "kubectl apply -f ./deploy.yaml -n ${env.DEPLOY_NAMESPACE}"
                 }
             }
+
+            container('kubernetes') {
+                sh "kubectl rollout status deployment -n ${env.DEPLOY_NAMESPACE} ${env.APP_NAME}"
+            }
         }
     }
 }
