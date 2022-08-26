@@ -52,6 +52,8 @@ spec:
 
         stage('Initialize') {
             currentBuild.displayName = version
+            sh 'nslookup www.163.com'
+            sh 'nslookup harbor.infra.svc.cluster.local'
         }
 
         stage('Clone codes') {
