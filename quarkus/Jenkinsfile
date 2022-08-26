@@ -73,7 +73,7 @@ spec:
 
         stage('Build image') {
             container('kaniko') {
-                sh "/kaniko/executor --skip-tls-verify --dockerfile=./src/main/docker/Dockerfile.jvm -c . --destination=192.168.250.101/study/${env.APP_NAME}:${version}"
+                sh "/kaniko/executor --skip-tls-verify --dockerfile=./src/main/docker/Dockerfile.jvm -c . --destination=harbor.infra.svc.cluster.local/study/${env.APP_NAME}:${version}"
             }
         }
 
@@ -81,7 +81,7 @@ spec:
             try {
                 container('kubernetes') {
                     sh "kubectl get deployments -n ${env.DEPLOY_NAMESPACE} ${env.APP_NAME}"
-                    sh "kubectl set image deployment -n ${env.DEPLOY_NAMESPACE} ${env.APP_NAME} ${env.APP_NAME}=192.168.250.101/study/${env.APP_NAME}:${version}"
+                    sh "kubectl set image deployment -n ${env.DEPLOY_NAMESPACE} ${env.APP_NAME} ${env.APP_NAME}=harbor.infra.svc.cluster.local/study/${env.APP_NAME}:${version}"
                 }
             } catch (e) {
                 container('busybox') {
