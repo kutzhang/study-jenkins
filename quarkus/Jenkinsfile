@@ -73,7 +73,7 @@ spec:
 
         stage('Build image') {
             container('kaniko') {
-                sh "/kaniko/executor --skip-tls-verify --dockerfile=./src/main/docker/Dockerfile.native -c . --destination=harbor.infra.sanlea.com/kutzhang/${env.APP_NAME}:${version}"
+                sh "/kaniko/executor --skip-tls-verify --dockerfile=./src/main/docker/Dockerfile.native -c . --destination=harbor.infra.svc.cluster.local/study/${env.APP_NAME}:${version}"
             }
         }
 
