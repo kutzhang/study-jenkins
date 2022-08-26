@@ -4,7 +4,7 @@ spec:
   serviceAccountName: jenkins-deployer
   containers:
   - name: kaniko
-    image: harbor.infra.sanlea.com/infra/kaniko-executor:debug
+    image: gcr.io/kaniko-project/executor:debug
     imagePullPolicy: IfNotPresent
     command:
     - cat
@@ -15,7 +15,7 @@ spec:
       - name: maven-home
         mountPath: /home/jenkins
   - name: graalvm
-    image: harbor.infra.sanlea.com/infra/graalvm-native-image:22.2.0
+    image: ghcr.io/graalvm/native-image:22.2.0
     imagePullPolicy: IfNotPresent
     command:
     - cat
@@ -24,7 +24,7 @@ spec:
       - name: maven-home
         mountPath: /root/.m2
   - name: kubernetes
-    image: harbor.infra.sanlea.com/infra/kubectl:1.24
+    image: kutzhang/kubectl:1.24
     imagePullPolicy: IfNotPresent
     tty: true
     command:
