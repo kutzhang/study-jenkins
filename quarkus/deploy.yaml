@@ -21,7 +21,7 @@ spec:
     spec:
       containers:
         - name: ${APP_NAME}
-          image: harbor.infra.svc.cluster.local/study/${APP_NAME}:${BUILD_DISPLAY_NAME}
+          image: harbor.cluster.home.sanlea.com/study/${APP_NAME}:${BUILD_DISPLAY_NAME}
           resources:
             requests:
               cpu: 100m
