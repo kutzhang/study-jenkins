@@ -25,11 +25,6 @@ spec:
                 git url:"https://github.com/devops-onboard/Deployments.git", branch:"main"
                 load env.DEPLOY_ENV_FILE
             }
-            sh "echo 'version: ${version}'"
-
-            if (env.APP_VERSION == null) {
-                env.APP_VERSION = version
-            }
         }
 
         stage('Prepare Deployment File') {
