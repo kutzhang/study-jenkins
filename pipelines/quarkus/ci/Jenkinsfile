@@ -39,10 +39,11 @@ spec:
         def version = new Date().format("yyyyMMddHHmmss")
 
         stage('Initialize') {
+            git url:'https://github.com/devops-onboard/Deployments.git', branch:'main'
             currentBuild.displayName = version
+            load env.DEPLOY_ENV_FILE
             sh 'env'
             sh 'ls -l'
-            sh 'cat jenkins/deployments/kubernetes/01/01/deploy.properties'
         }
 
         stage('Clone codes') {
