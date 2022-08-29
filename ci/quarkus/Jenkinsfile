@@ -1,0 +1,62 @@
+podTemplate(yaml:"""
+kind: Pod
+spec:
+  serviceAccountName: jenkins-deployer
+  containers:
+  - name: kaniko
+    image: gcr.io/kaniko-project/executor:debug
+    imagePullPolicy: IfNotPresent
+    command:
+    - cat
+    tty: true
+    volumeMounts:
+      - name: registry-secret
+        mountPath: /kaniko/.docker
+      - name: maven-home
+        mountPath: /home/jenkins
+  - name: graalvm
+    image: ghcr.io/graalvm/native-image:22.2.0
+    imagePullPolicy: IfNotPresent
+    command:
+    - cat
+    tty: true
+    volumeMounts:
+      - name: maven-home
+        mountPath: /root/.m2
+  volumes:
+    - name: maven-home
+      persistentVolumeClaim:
+        claimName: maven-repo-storage
+    - name: registry-secret
+      secret:
+        secretName: harbor-registry-client
+        items:
+          - key: .dockerconfigjson
+            path: config.json
+"""
+  ) {
+    node(POD_LABEL) {
+        def version = new Date().format("yyyyMMddHHmmss")
+
+        stage('Initialize') {
+            currentBuild.displayName = version
+        }
+
+        stage('Clone codes') {
+            git url:env.GIT_URL, branch:env.GIT_BRANCH
+        }
+
+        stage('Build') {
+            container('graalvm') {
+                sh './mvnw clean'
+                sh './mvnw package'
+            }
+        }
+
+        stage('Build image') {
+            container('kaniko') {
+                sh "/kaniko/executor --skip-tls-verify --dockerfile=./src/main/docker/Dockerfile.jvm -c . --destination=harbor.cluster.home.sanlea.com/study/${env.APP_NAME}:${version}"
+            }
+        }
+    }
+}
