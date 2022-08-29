@@ -18,6 +18,10 @@ spec:
 """
   ) {
     node(POD_LABEL) {
+        stage('Initialize') {
+            currentBuild.displayName = env.APP_VERSION
+        }
+
         stage('Prepare CD') {
             git url:"https://github.com/kutzhang/study-jenkins.git", branch:"main"
 

@@ -39,7 +39,6 @@ spec:
         def version = new Date().format("yyyyMMddHHmmss")
 
         stage('Initialize') {
-            env.APP_VERSION=version
             git url:'https://github.com/devops-onboard/Deployments.git', branch:'main'
             currentBuild.displayName = version
             load env.DEPLOY_ENV_FILE
