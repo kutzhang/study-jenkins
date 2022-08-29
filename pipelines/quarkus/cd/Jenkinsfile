@@ -29,7 +29,7 @@ spec:
 
         stage('Prepare Deployment File') {
             container('envsubst') {
-                sh 'envsubst < quarkus/cd/deploy.yaml > deploy.yaml'
+                sh 'envsubst < deployments/templates/quarkus/cd/deploy.yaml > deploy.yaml'
             }
         }
 
