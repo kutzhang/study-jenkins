@@ -41,6 +41,7 @@ spec:
         stage('Initialize') {
             currentBuild.displayName = version
             sh 'env'
+            sh 'ls -l'
             sh 'cat deployments/kubernetes/01/01/deploy.properties'
         }
 
