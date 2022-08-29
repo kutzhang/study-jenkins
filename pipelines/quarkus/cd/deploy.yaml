@@ -19,11 +19,11 @@ spec:
           image: harbor.cluster.home.sanlea.com/study/${APP_NAME}:${APP_VERSION}
           resources:
             requests:
-              cpu: 100m
-              memory: 200Mi
+              cpu: ${K8S_REQUEST_CPU}
+              memory: ${K8S_REQUEST_MEMORY}
             limits:
-              cpu: 200m
-              memory: 400Mi
+              cpu: ${K8S_LIMIT_CPU}
+              memory: ${K8S_LIMIT_MEMORY}
           livenessProbe:
             httpGet:
               path: /q/health/live
