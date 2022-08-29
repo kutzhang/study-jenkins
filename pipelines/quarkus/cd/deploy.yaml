@@ -8,20 +8,15 @@ spec:
   selector:
     matchLabels:
       app: ${APP_NAME}
-  replicas: 2
-  strategy:
-    rollingUpdate:
-      maxSurge: 25%
-      maxUnavailable: 25%
-    type: RollingUpdate
+  replicas: ${K8S_REPLICAS}
   template:
     metadata:
       labels:
         app: ${APP_NAME}
     spec:
       containers:
-        - name: ${APP_NAME}
-          image: harbor.cluster.home.sanlea.com/study/${APP_NAME}:${BUILD_DISPLAY_NAME}
+        - name: main
+          image: harbor.cluster.home.sanlea.com/study/${APP_NAME}:${APP_VERSION}
           resources:
             requests:
               cpu: 100m

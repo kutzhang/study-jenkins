@@ -1,0 +1,42 @@
+podTemplate(yaml:"""
+kind: Pod
+spec:
+  serviceAccountName: jenkins-deployer
+  containers:
+  - name: kubernetes
+    image: kutzhang/kubectl:1.24
+    imagePullPolicy: IfNotPresent
+    tty: true
+    command:
+    - cat
+  - name: envsubst
+    image: dibi/envsubst:latest
+    imagePullPolicy: IfNotPresent
+    tty: true
+    command:
+    - cat
+"""
+  ) {
+    node(POD_LABEL) {
+        stage('Prepare CD') {
+            git url:"https://github.com/kutzhang/study-jenkins.git", branch:"main"
+            git url:"https://github.com/devops-onboard/Deployments.git", branch:"main"
+        }
+
+        stage('Prepare Deployment File') {
+            container('envsubst') {
+                sh 'envsubst < quarkus/cd/deploy.yaml > deploy.yaml'
+            }
+        }
+
+        stage('Deploy') {
+            container('kubernetes') {
+                sh "kubectl apply -f ./deploy.yaml -n ${env.K8S_NAMESPACE}"
+            }
+
+            container('kubernetes') {
+                sh "kubectl rollout status deployment -n ${env.K8S_NAMESPACE} ${env.APP_NAME}"
+            }
+        }
+    }
+}
