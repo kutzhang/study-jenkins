@@ -27,7 +27,7 @@ spec:
             }
             sh "echo 'version: ${version}'"
 
-            if env.APP_VERSION == null {
+            if (env.APP_VERSION == null) {
                 env.APP_VERSION = version
             }
         }
