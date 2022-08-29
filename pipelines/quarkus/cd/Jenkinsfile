@@ -20,7 +20,11 @@ spec:
     node(POD_LABEL) {
         stage('Prepare CD') {
             git url:"https://github.com/kutzhang/study-jenkins.git", branch:"main"
-            git url:"https://github.com/devops-onboard/Deployments.git", branch:"main"
+
+            dir('deployments') {
+                git url:"https://github.com/devops-onboard/Deployments.git", branch:"main"
+                load env.DEPLOY_ENV_FILE
+            }
         }
 
         stage('Prepare Deployment File') {
