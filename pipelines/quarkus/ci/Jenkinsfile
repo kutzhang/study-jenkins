@@ -42,8 +42,6 @@ spec:
             git url:'https://github.com/devops-onboard/Deployments.git', branch:'main'
             currentBuild.displayName = version
             load env.DEPLOY_ENV_FILE
-            sh 'env'
-            sh 'ls -l'
         }
 
         stage('Clone codes') {
