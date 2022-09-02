@@ -19,7 +19,7 @@ spec:
   ) {
     node(POD_LABEL) {
         stage('Initialize') {
-            currentBuild.displayName = env.APP_VERSION
+            currentBuild.displayName = env.IMAGE_VERSION
         }
 
         stage('Prepare CD') {
