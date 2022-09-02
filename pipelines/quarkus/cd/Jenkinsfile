@@ -33,7 +33,7 @@ spec:
 
         stage('Prepare Deployment File') {
             container('envsubst') {
-                sh 'envsubst < ./deployments/templates/quarkus/deploy.yaml > ./deploy.yaml'
+                sh 'envsubst < ./deployments/templates/quarkus/deployment.yaml > ./deploy.yaml'
                 sh 'cat deploy.yaml'
             }
         }
