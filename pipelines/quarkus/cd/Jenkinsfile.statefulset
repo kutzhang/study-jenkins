@@ -33,7 +33,7 @@ spec:
 
         stage('Prepare Deployment File') {
             container('envsubst') {
-                sh "envsubst < ./deployments/templates/quarkus/${env.DEPLOY_TYPE}.yaml > ./deploy.yaml"
+                sh "envsubst < ./deployments/templates/quarkus/statefulset.yaml > ./deploy.yaml"
                 sh 'cat deploy.yaml'
             }
         }
@@ -41,12 +41,7 @@ spec:
         stage('Deploy') {
             container('kubernetes') {
                 sh "kubectl apply -f ./deploy.yaml -n ${env.K8S_NAMESPACE}"
-            }
-
-            if (env.DEPLOY_TYPE == 'deployment') {
-                container('kubernetes') {
-                    sh "kubectl rollout status deployment -n ${env.K8S_NAMESPACE} ${env.APP_NAME}"
-                }
+                sh "kubectl rollout status deployment -n ${env.K8S_NAMESPACE} ${env.APP_NAME}"
             }
         }
     }

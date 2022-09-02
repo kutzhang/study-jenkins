@@ -58,7 +58,7 @@ spec:
 
         stage('Build Image & Push Image') {
             container('kaniko') {
-                sh "/kaniko/executor --skip-tls-verify --dockerfile=./src/main/docker/Dockerfile.jvm -c . --destination=harbor.cluster.home.sanlea.com/study/${env.APP_NAME}:${version}"
+                sh "/kaniko/executor --skip-tls-verify --dockerfile=./src/main/docker/Dockerfile.jvm -c . --destination=harbor.cluster.home.sanlea.com/study/${env.IMAGE_NAME}:${version}"
             }
         }
     }
