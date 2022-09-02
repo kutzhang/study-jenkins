@@ -43,8 +43,10 @@ spec:
                 sh "kubectl apply -f ./deploy.yaml -n ${env.K8S_NAMESPACE}"
             }
 
-            container('kubernetes') {
-                sh "kubectl rollout status deployment -n ${env.K8S_NAMESPACE} ${env.APP_NAME}"
+            if (env.DEPLOY_TYPE == 'deployment') {
+                container('kubernetes') {
+                    sh "kubectl rollout status deployment -n ${env.K8S_NAMESPACE} ${env.APP_NAME}"
+                }
             }
         }
     }
