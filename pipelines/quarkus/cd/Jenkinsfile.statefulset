@@ -41,7 +41,6 @@ spec:
         stage('Deploy') {
             container('kubernetes') {
                 sh "kubectl apply -f ./deploy.yaml -n ${env.K8S_NAMESPACE}"
-                sh "kubectl rollout status deployment -n ${env.K8S_NAMESPACE} ${env.APP_NAME}"
             }
         }
     }
