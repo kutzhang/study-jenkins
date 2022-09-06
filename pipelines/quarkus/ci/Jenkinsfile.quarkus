@@ -5,7 +5,7 @@ spec:
   dnsPolicy: Default
   containers:
   - name: kaniko
-    image: gcr.io/kaniko-project/executor:debug
+    image: harbor.cluster.home.sanlea.com/base/kaniko-executor:debug
     imagePullPolicy: IfNotPresent
     command:
     - cat
@@ -16,7 +16,7 @@ spec:
       - name: maven-home
         mountPath: /home/jenkins
   - name: graalvm
-    image: ghcr.io/graalvm/native-image:22.2.0
+    image: harbor.cluster.home.sanlea.com/base/graalvm-native-image:22.2.0
     imagePullPolicy: IfNotPresent
     command:
     - cat
