@@ -14,7 +14,7 @@ pipeline {
         stage('Unit Test') {
             steps {
                 withSonarQubeEnv('192.168.10.174') {
-                    sh 'mvn clean sonar:sonar -Pcoverage'
+                    sh 'mvn sonar:sonar -Pcoverage'
                 }
             }
         }
