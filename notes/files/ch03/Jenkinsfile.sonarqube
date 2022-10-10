@@ -14,7 +14,9 @@ pipeline {
         stage('Unit Test') {
             steps {
                 withSonarQubeEnv('192.168.10.174') {
-                    sh 'mvn clean package sonar:sonar'
+                    sh '''mvn clean package sonar:sonar \
+                            -Dsonar.core.codeCoveragePlugin=jacoco \
+	                        -Dsonar.coverage.jacoco.xmlReportPaths=./target/jacoco/*.xml'''
                 }
             }
         }
