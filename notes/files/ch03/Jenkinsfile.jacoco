@@ -14,7 +14,7 @@ pipeline {
         stage('Unit Test') {
             steps{
                 sh 'mvn test'
-                jacoco(minimumLineCoverage: "1", maximumLineCoverage: '80', changeBuildStatus: true)
+                jacoco(minimumLineCoverage: "5", maximumLineCoverage: '10', changeBuildStatus: true)
             }
         }
     }
