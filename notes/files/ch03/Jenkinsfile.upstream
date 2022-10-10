@@ -1,0 +1,41 @@
+pipeline{
+    agent{
+        label "maven"
+    }
+    triggers{
+        upstream(
+            upstreamProjects: "study/hello-world",
+            threshold: hudson.model.Result.SUCCESS
+        )
+    }
+    stages{
+        stage("Checkout"){
+            steps{
+                echo "========executing Checkout========"
+                sh 'mvn --version'
+            }
+            post{
+                always{
+                    echo "========always========"
+                }
+                success{
+                    echo "========Checkout executed successfully========"
+                }
+                failure{
+                    echo "========Checkout execution failed========"
+                }
+            }
+        }
+    }
+    post{
+        always{
+            echo "========always========"
+        }
+        success{
+            echo "========pipeline executed successfully ========"
+        }
+        failure{
+            echo "========pipeline execution failed========"
+        }
+    }
+}

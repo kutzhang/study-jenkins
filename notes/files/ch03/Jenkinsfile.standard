@@ -1,0 +1,26 @@
+pipeline {
+    agent {
+        label "maven"
+    }
+
+    stages {
+        stage('Checkout codes') {
+            steps {
+                git url:'https://github.com/kutzhang/quarkus-get-started.git', branch:'main'
+            }
+        }
+        
+        stage('Build package') {
+            steps {
+                sh 'mvn clean'
+                sh 'mvn package -Pnative'
+            }
+        }
+        
+        stage('Build image') {
+            steps {
+                sh "podman build -f src/main/docker/Dockerfile.native -t kutzhang/quarkus-get-started:1.0.0 ."
+            }
+        }
+    }
+}
