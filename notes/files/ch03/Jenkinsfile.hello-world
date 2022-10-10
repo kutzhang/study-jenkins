@@ -20,7 +20,7 @@ pipeline {
         
         stage('Build image') {
             steps {
-                sh "podman build -f src/main/docker/Dockerfile.native -t kutzhang/quarkus-get-started:1.0.0 ."
+                sh "podman build -f src/main/docker/Dockerfile.native-micro -t kutzhang/quarkus-get-started:1.0.0 ."
             }
         }
     }
