@@ -17,12 +17,5 @@ pipeline {
                 jacoco(minimumLineCoverage: 60, changeBuildStatus: true)
             }
         }
-        
-        stage('Build package') {
-            steps {
-                sh 'mvn clean'
-                sh 'mvn package -Pnative'
-            }
-        }
     }
 }
