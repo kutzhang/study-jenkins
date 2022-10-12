@@ -1,5 +1,5 @@
-@Library("study")
-import static com.sanlea.study.jenkins.MessageManager.*
+@Library("study") _
+@Library("study") import static com.sanlea.study.jenkins.MessageManager.*
 
 pipeline {
     agent {
