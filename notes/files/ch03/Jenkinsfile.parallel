@@ -36,6 +36,8 @@ pipeline {
                     steps {
                         jacoco minimumLineCoverage: "60", maximumLineCoverage: '80', changeBuildStatus: true
                     }
+
+                    sleep time: 3, unit: 'MINUTES'
                 }
 
                 stage('SonarQube') {
@@ -46,6 +48,8 @@ pipeline {
                         timeout(time: 5) {
                             waitForQualityGate abortPipeline: true
                         }
+
+                        sleep time: 5, unit: 'MINUTES'
                     }
                 }
             }
