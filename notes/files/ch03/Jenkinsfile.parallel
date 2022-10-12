@@ -35,7 +35,7 @@ pipeline {
                     steps {
                         jacoco minimumLineCoverage: "60", maximumLineCoverage: '80', changeBuildStatus: true
                     }
-                },
+                }
 
                 stage('SonarQube') {
                         steps {
