@@ -29,7 +29,6 @@ pipeline {
                 stage('Coverage') {
                     steps {
                         jacoco minimumLineCoverage: "60", maximumLineCoverage: '80', changeBuildStatus: true
-                        sleep time: 3, unit: 'MINUTES'
                     }
                 }
 
@@ -37,7 +36,6 @@ pipeline {
                         steps {
                             withSonarQubeEnv('192.168.10.174') {
                             sh 'mvn sonar:sonar'
-                            sleep time: 5, unit: 'MINUTES'
                         }
                         timeout(time: 10) {
                             waitForQualityGate abortPipeline: true
