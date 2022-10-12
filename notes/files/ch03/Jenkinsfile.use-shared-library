@@ -9,7 +9,9 @@ pipeline {
     stages {
         stage('standard class') {
             steps {
-                say this, "how do you turn this on?"
+                script {
+                    say this, "how do you turn this on?"
+                }
             }
         }
 
