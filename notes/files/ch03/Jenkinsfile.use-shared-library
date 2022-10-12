@@ -1,0 +1,15 @@
+@library("study") _
+
+pipeline {
+    agent {
+        label "maven"
+    }
+
+    stages {
+        stage('Test shared library') {
+            steps {
+                sayHello this, 'show me the money'
+            }
+        }
+    }
+}
