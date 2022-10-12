@@ -30,7 +30,7 @@ pipeline {
         }
 
         stage('Quarlity Check') {
-            parallel {}
+            parallel {
                 stage('Coverage') {
                     steps {
                         jacoco minimumLineCoverage: "60", maximumLineCoverage: '80', changeBuildStatus: true
