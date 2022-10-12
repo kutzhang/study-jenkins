@@ -48,12 +48,12 @@ pipeline {
                         }
                     }
                 }
+            }
+        }
 
-                stage('Build Native Runner') {
-                    steps {
-                        sh 'mvn package -Pnative'
-                    }
-                }
+        stage('Build Native Runner') {
+            steps {
+                sh 'mvn package -Pnative'
             }
         }
 
