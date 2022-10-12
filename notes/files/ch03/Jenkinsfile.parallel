@@ -31,22 +31,28 @@ pipeline {
 
         stage('Quarlity Check') {
             parallel(
-                jacoco: {node(label: 'maven') {
-                    jacoco minimumLineCoverage: "60", maximumLineCoverage: '80', changeBuildStatus: true
-                }},
-
-                sonarqube: {node(label: 'maven') {
-                    withSonarQubeEnv('192.168.10.174') {
-                        sh 'mvn sonar:sonar'
+                stage('Coverage') {
+                    steps {
+                        jacoco minimumLineCoverage: "60", maximumLineCoverage: '80', changeBuildStatus: true
                     }
-                    timeout(time: 5) {
-                        waitForQualityGate abortPipeline: true
-                    }
-                }},
+                },
 
-                buildNative: {node(label: 'maven') {
-                    sh 'mvn package -Pnative'
-                }}
+                stage('SonarQube') {
+                        steps {
+                            withSonarQubeEnv('192.168.10.174') {
+                            sh 'mvn sonar:sonar'
+                        }
+                        timeout(time: 5) {
+                            waitForQualityGate abortPipeline: true
+                        }
+                    }
+                }
+
+                stage('Build Native Runner') {
+                    steps {
+                        sh 'mvn package -Pnative'
+                    }
+                }
             )
         }
 
@@ -57,3 +63,5 @@ pipeline {
         }
     }
 }
+
+// https://blog.puckwang.com/posts/2021/jenkins-pipeline-running-stages-in-parallel/
