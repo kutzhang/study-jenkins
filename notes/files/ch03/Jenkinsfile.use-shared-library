@@ -6,12 +6,34 @@ pipeline {
         label "maven"
     }
 
+    environment {
+        X_NAME = "kut"
+    }
+
     stages {
         stage('standard class') {
             steps {
                 script {
                     say this, "how do you turn this on?"
                 }
+            }
+        }
+
+        stage('print name') {
+            steps {
+                echo "${X_NAME}"
+            }
+        }
+
+        stage('change name') {
+            steps {
+                X_NAME = "magick"
+            }
+        }
+
+        stage('print name again') {
+            steps {
+                echo "${X_NAME}"
             }
         }
 
