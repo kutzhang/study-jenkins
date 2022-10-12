@@ -1,0 +1,59 @@
+pipeline {
+    agent {
+        label "maven"
+    }
+
+    stages {
+        stage('Display Environments') {
+            steps {
+                sh 'env'
+            }
+        }
+
+        stage('Checkout codes') {
+            steps {
+                milestone(ordinal: 1000, label: 'Get lock for project build')
+                git url:env.PROJECT_GIT_URL, branch:env.PROJECT_GIT_BRANCH
+            }
+        }
+
+        stage('Unit Test') {
+            steps {
+                sh 'mvn test'
+            }
+        }
+
+        stage('Package') {
+            steps {
+                sh 'mvn package -DskipTests'
+            }
+        }
+
+        stage('Quarlity Check') {
+            parallel {
+                jacoco: {node(label: 'maven') {
+                    jacoco minimumLineCoverage: "60", maximumLineCoverage: '80', changeBuildStatus: true
+                }}
+
+                sonarqube: {node(label: 'maven') {
+                    withSonarQubeEnv('192.168.10.174') {
+                        sh 'mvn sonar:sonar'
+                    }
+                    timeout(time: 5) {
+                        waitForQualityGate abortPipeline: true
+                    }
+                }}
+
+                buildNative: {node(label: 'maven') {
+                    sh 'mvn package -Pnative'
+                }}
+            }
+        }
+
+        stage('Complete') {
+            steps {
+                echo 'All OK'
+            }
+        }
+    }
+}
