@@ -10,15 +10,15 @@ pipeline {
         stage('standard class') {
             steps {
                 script {
-                    MessageManager.say this, "ahahahhahahah?"
+                    MessageManager.say this, "how do you turn this on?"
                 }
             }
         }
 
-        // stage('vars') {
-        //     steps {
-        //         sayHello this, 'show me the money!'
-        //     }
-        // }
+        stage('vars') {
+            steps {
+                sayHello this, 'show me the money!'
+            }
+        }
     }
 }
