@@ -27,7 +27,9 @@ pipeline {
 
         stage('change name') {
             steps {
-                X_NAME = "magick"
+                script {
+                    X_NAME = "magick"
+                }
             }
         }
 
