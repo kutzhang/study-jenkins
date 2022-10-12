@@ -10,7 +10,7 @@ pipeline {
         stage('standard class') {
             steps {
                 script {
-                    MessageManager.say this, "how do you turn this on?"
+                    MessageManager.say this, "ahahahhahahah?"
                 }
             }
         }
