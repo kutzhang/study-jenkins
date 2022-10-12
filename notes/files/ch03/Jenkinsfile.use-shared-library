@@ -9,9 +9,7 @@ pipeline {
     stages {
         stage('standard class') {
             steps {
-                script {
-                    MessageManager.say steps, "how do you turn this on?"
-                }
+                MessageManager.say steps, "how do you turn this on?"
             }
         }
 
