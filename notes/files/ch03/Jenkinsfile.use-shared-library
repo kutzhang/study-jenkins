@@ -1,5 +1,5 @@
 @Library("study")
-import com.sanlea.study.jenkins.MessageManager
+import static com.sanlea.study.jenkins.MessageManager.say
 
 pipeline {
     agent {
@@ -10,7 +10,7 @@ pipeline {
         stage('standard class') {
             steps {
                 script {
-                    MessageManager.say this, "how do you turn this on?"
+                    say this, "how do you turn this on?"
                 }
             }
         }
