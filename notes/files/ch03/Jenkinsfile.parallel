@@ -33,7 +33,7 @@ pipeline {
             parallel(
                 jacoco: {node(label: 'maven') {
                     jacoco minimumLineCoverage: "60", maximumLineCoverage: '80', changeBuildStatus: true
-                }}
+                }},
 
                 sonarqube: {node(label: 'maven') {
                     withSonarQubeEnv('192.168.10.174') {
@@ -42,7 +42,7 @@ pipeline {
                     timeout(time: 5) {
                         waitForQualityGate abortPipeline: true
                     }
-                }}
+                }},
 
                 buildNative: {node(label: 'maven') {
                     sh 'mvn package -Pnative'
