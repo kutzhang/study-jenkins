@@ -7,7 +7,7 @@ pipeline {
         stage('Checkout codes') {
             steps {
                 milestone(ordinal: 1000, label: 'Get lock for project build')
-                git url:'https://github.com/kutzhang/quarkus-get-started.git', branch:'main'
+                git url:env.GIT_URL, branch:env.GIT_BRANCH
             }
         }
 
