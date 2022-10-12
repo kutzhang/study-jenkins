@@ -30,6 +30,7 @@ pipeline {
         }
 
         stage('Quarlity Check') {
+            failFast true
             parallel {
                 stage('Coverage') {
                     steps {
@@ -64,4 +65,7 @@ pipeline {
     }
 }
 
+// References:
+// --------------------------------------------------------------------------------------------------
 // https://blog.puckwang.com/posts/2021/jenkins-pipeline-running-stages-in-parallel/
+// https://stackoverflow.com/questions/58026189/how-to-use-failfast-in-dynamic-pipeline-in-jenkins
