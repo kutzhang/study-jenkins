@@ -23,12 +23,6 @@ pipeline {
             }
         }
 
-        stage('Package') {
-            steps {
-                sh 'mvn clean package -DskipTests'
-            }
-        }
-
         stage('Quarlity Check') {
             failFast true
             parallel {
