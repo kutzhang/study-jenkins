@@ -4,6 +4,12 @@ pipeline {
     }
 
     stages {
+        stage('Display Environments') {
+            steps {
+                sh 'env'
+            }
+        }
+
         stage('Checkout codes') {
             steps {
                 milestone(ordinal: 1000, label: 'Get lock for project build')
