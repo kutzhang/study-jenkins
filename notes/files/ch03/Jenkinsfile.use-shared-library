@@ -15,7 +15,7 @@ pipeline {
         stage('Initial task') {
             steps {
                 script {
-                    createTask projectName: X_NAME {taskId ->
+                    createTask(projectName: X_NAME) {taskId ->
                         X_TASK_ID = taskId
                     }
                 }
