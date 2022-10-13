@@ -18,8 +18,8 @@ pipeline {
                 script {
                     X_TASK_ID = create(this, "OBAK")
                 }
+                echo "Task ID: ${X_TASK_ID}"
             }
-            echo "Task ID: ${X_TASK_ID}"
         }
 
         stage('standard class') {
