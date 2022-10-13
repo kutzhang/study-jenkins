@@ -13,6 +13,6 @@ class ApiClient {
         request.getOutputStream().write(JsonOutput.toJson(parameters).getBytes("UTF-8"))
 
         def json = new JsonSlurper();
-        return json.parseText(post.getInputStream().text)
+        return json.parseText(request.getInputStream().text)
     }
 }
