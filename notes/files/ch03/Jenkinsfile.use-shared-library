@@ -15,7 +15,9 @@ pipeline {
     stages {
         stage('Initial task') {
             steps {
-                X_TASK_ID = create(this, "OBAK")
+                script {
+                    X_TASK_ID = create(this, "OBAK")
+                }
             }
             echo "Task ID: ${X_TASK_ID}"
         }
