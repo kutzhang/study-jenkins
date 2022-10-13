@@ -31,12 +31,6 @@ pipeline {
             }
         }
 
-        stage('print name') {
-            steps {
-                echo "${X_NAME}"
-            }
-        }
-
         stage('vars') {
             steps {
                 sayHello this, 'show me the money!'
