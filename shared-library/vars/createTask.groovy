@@ -1,4 +1,4 @@
-import om.sanlea.study.jenkins.component.ApiClient
+import com.sanlea.study.jenkins.component.ApiClient
 
 void call(String projectName, Closure closure) {
     def apiClient = new ApiClient()
