@@ -15,7 +15,8 @@ pipeline {
         stage('Initial task') {
             steps {
                 createTask(X_NAME) {
-                    X_TASK_ID = it.data
+                    taskId ->
+                    X_TASK_ID = taskId
                 }
                 echo "Task ID: ${X_TASK_ID}"
             }
