@@ -1,5 +1,6 @@
 @Library("study")
 import static com.sanlea.study.jenkins.MessageManager.*
+import static com.sanlea.study.jenkins.TaskManager.*
 
 pipeline {
     agent {
@@ -8,9 +9,17 @@ pipeline {
 
     environment {
         X_NAME = "kut"
+        X_TASK_ID = "Unknown"
     }
 
     stages {
+        stage('Initial task') {
+            steps {
+                X_TASK_ID = create(this, "OBAK")
+            }
+            echo "Task ID: ${X_TASK_ID}"
+        }
+
         stage('standard class') {
             steps {
                 script {
