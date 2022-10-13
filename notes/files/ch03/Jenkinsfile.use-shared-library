@@ -14,10 +14,13 @@ pipeline {
     stages {
         stage('Initial task') {
             steps {
-                createTask(X_NAME) {
-                    taskId ->
-                    X_TASK_ID = taskId
+                script {
+                    createTask(X_NAME) {
+                        taskId ->
+                        X_TASK_ID = taskId
+                    }
                 }
+                
                 echo "Task ID: ${X_TASK_ID}"
             }
         }
