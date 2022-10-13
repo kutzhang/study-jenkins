@@ -7,7 +7,6 @@ pipeline {
     }
 
     environment {
-        X_NAME = "kut"
         X_TASK_ID = "Unknown"
     }
 
@@ -15,7 +14,7 @@ pipeline {
         stage('Initial task') {
             steps {
                 script {
-                    createTask(projectName: X_NAME) {taskId ->
+                    createTask(projectName: JOB_NAME) {taskId ->
                         X_TASK_ID = taskId
                     }
                 }
