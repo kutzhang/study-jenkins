@@ -15,8 +15,7 @@ pipeline {
         stage('Initial task') {
             steps {
                 script {
-                    createTask(X_NAME) {
-                        taskId ->
+                    createTask(X_NAME) {taskId ->
                         X_TASK_ID = taskId
                     }
                 }
@@ -34,20 +33,6 @@ pipeline {
         }
 
         stage('print name') {
-            steps {
-                echo "${X_NAME}"
-            }
-        }
-
-        stage('change name') {
-            steps {
-                script {
-                    X_NAME = "magick"
-                }
-            }
-        }
-
-        stage('print name again') {
             steps {
                 echo "${X_NAME}"
             }
