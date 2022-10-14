@@ -3,6 +3,10 @@ pipeline {
         label "maven"
     }
 
+    tools {
+        maven 'maven'
+    }
+
     stages {
         stage('Checkout codes') {
             steps {
