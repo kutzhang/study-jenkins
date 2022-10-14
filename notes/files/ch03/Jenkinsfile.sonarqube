@@ -18,6 +18,7 @@ pipeline {
         stage('Unit Test') {
             steps {
                 withSonarQubeEnv('sonarqube-server') {
+                    sh 'mvn --version'
                     sh 'mvn clean package sonar:sonar'
                 }
             }
