@@ -19,7 +19,7 @@ pipeline {
     post {
         success {
             script {
-                currentBuild.description = 'Complete'
+                currentBuild.description = '<a href="http://www.163.com" target="_blank">Complete</a>'
             }
         }
     }
