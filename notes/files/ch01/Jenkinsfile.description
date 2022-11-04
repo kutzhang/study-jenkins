@@ -1,0 +1,18 @@
+pipeline {
+    agent any
+
+    stages {
+        stage('Processing') {
+            steps {
+                milestone(ordinal: 1000, label: 'Get lock for project build')
+                echo 'Processing.....'
+            }
+        }
+        
+        post {
+            success {
+                currentBuild.description = 'Complete'
+            }
+        }
+    }
+}
