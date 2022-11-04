@@ -12,7 +12,9 @@ pipeline {
 
     post {
         success {
-            currentBuild.description = 'Complete'
+            script {
+                currentBuild.description = 'Complete'
+            }
         }
     }
 }
