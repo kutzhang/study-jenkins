@@ -30,6 +30,7 @@ pipeline {
                 }
                 echo "MAVEN_HOME: ${env.MAVEN_HOME}"
             }
+            sh 'printenv'
         }
 
         stage('Complete') {
