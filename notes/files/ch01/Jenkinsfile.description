@@ -15,6 +15,7 @@ pipeline {
     stages {
         stage('Complete') {
             steps {
+                echo 'Parameter message=${message}'
                 echo '${env.PROJECT_NAME} Processing by ${env.PROJECT_OWNER}.....'
                 echo 'Complete'
             }
