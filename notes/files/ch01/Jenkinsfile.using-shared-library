@@ -2,6 +2,10 @@
 
 pipeline {
     agent any
+
+    options {
+        timestamps()
+    }
     
     stages {
         stage('Send message') {
