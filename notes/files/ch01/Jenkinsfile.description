@@ -12,12 +12,25 @@ pipeline {
         PROJECT_OWNER = 'Kut Zhang'
     }
 
+    tools {
+        maven 'maven'
+    }
+
     parameters {
         string name: 'message', defaultValue: 'show me the money', description: 'What the message you need to show?'
         booleanParam name: 'needShowMessage', defaultValue: true, description: 'Do you need to show message on pipeline?'
     }
 
     stages {
+        stage('Proccessing') {
+            steps {
+                script {
+                    def mavenHome = tools 'maven'
+                }
+                echo "MAVEN_HOME: ${mavenHome}"
+            }
+        }
+
         stage('Complete') {
             steps {
                 echo "Parameter message=${message}"
