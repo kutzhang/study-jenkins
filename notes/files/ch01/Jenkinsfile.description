@@ -61,12 +61,12 @@ pipeline {
 
         stage('Send Notification') {
             steps {
-                timeout(time: 30, unit: 'MINUTES') {
-                    env.sendNotificationEnable = input message: 'Are you sure to sending notification?', ok: 'Yes', parameters: [
-                        booleanParam(name: 'Send notification', defaultValue: true)
-                    ]
-                }
                 script {
+                    timeout(time: 30, unit: 'MINUTES') {
+                        env.sendNotificationEnable = input message: 'Are you sure to sending notification?', ok: 'Yes', parameters: [
+                            booleanParam(name: 'Send notification', defaultValue: true)
+                        ]
+                    }
                     if (env.sendNotificationEnable) {
                         println('Sending notifications............')
                         println('Notifications have been sent')
