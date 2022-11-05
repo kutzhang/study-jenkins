@@ -10,6 +10,7 @@ pipeline {
     environment {
         PROJECT_NAME = 'Description'
         PROJECT_OWNER = 'Kut Zhang'
+        MAVEN_HOME = null
     }
 
     tools {
@@ -25,9 +26,9 @@ pipeline {
         stage('Proccessing') {
             steps {
                 script {
-                    def mavenHome = tool name: 'maven', type: 'maven'
+                    env.MAVEN_HOME = tool name: 'maven', type: 'maven'
                 }
-                echo "MAVEN_HOME: ${mavenHome}"
+                echo "MAVEN_HOME: ${env.MAVEN_HOME}"
             }
         }
 
