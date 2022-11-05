@@ -7,7 +7,7 @@ pipeline {
         stage('Send message') {
             steps {
                 echo 'hahahahahah'
-                sendMessage {
+                sendMessage(this) {
                     title 'Demo Title'
                     content 'Demo Content'
                     receiver 'Lana Chang'
