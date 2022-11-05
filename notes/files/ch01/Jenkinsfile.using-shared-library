@@ -9,7 +9,6 @@ pipeline {
                 echo 'hahahahahah'
                 sendMessage(this) {
                     title 'Demo Title'
-                    content 'Demo Content'
                     receiver 'Lana Chang'
                     sender 'Kut Zhang'
                 }
