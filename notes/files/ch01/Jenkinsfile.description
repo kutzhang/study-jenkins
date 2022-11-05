@@ -29,8 +29,8 @@ pipeline {
                     env.MAVEN_HOME = tool name: 'maven', type: 'maven'
                 }
                 echo "MAVEN_HOME: ${env.MAVEN_HOME}"
+                sh 'printenv'
             }
-            sh 'printenv'
         }
 
         stage('Complete') {
