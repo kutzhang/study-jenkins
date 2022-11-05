@@ -23,6 +23,15 @@ pipeline {
     }
 
     stages {
+        stage('Prepare Environment') {
+            steps {
+                script {
+                    def projectProperties = readProperties './notes/files/ch01/env.properties'
+                    println(projectProperties)
+                }
+            }
+        }
+
         stage('Proccessing') {
             steps {
                 echo "Parameter message=${message}"
