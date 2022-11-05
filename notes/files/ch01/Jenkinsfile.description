@@ -67,7 +67,7 @@ pipeline {
                     ]
                 }
                 script {
-                    if (sendNotificationEnable) {
+                    if (sparams.endNotificationEnable) {
                         println('Sending notifications............')
                         println('Notifications have been sent')
                     }
