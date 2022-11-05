@@ -14,7 +14,7 @@ pipeline {
                 addReportItem 'Package......'
                 addReportItem 'Storing......'
                 addReportItem 'Complete'
-                generateReport()
+                generateReport env
                 publishHTML(target: [
                     allowMissing: true, 
                     alwaysLinkToLastBuild: true, 
