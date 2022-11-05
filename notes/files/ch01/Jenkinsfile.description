@@ -7,10 +7,15 @@ pipeline {
         timeout(time: 30, unit: 'MINUTES')
     }
 
+    environment {
+        PROJECT_NAME = 'Description'
+        PROJECT_OWNER = 'Kut Zhang'
+    }
+
     stages {
         stage('Complete') {
             steps {
-                echo 'Processing.....'
+                echo '${env.PROJECT_NAME} Processing by ${env.PROJECT_OWNER}.....'
                 echo 'Complete'
             }
         }
