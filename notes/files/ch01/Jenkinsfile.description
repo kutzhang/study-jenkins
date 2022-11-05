@@ -59,6 +59,22 @@ pipeline {
             }
         }
 
+        stage('Send Notification') {
+            steps {
+                timeout(time: 30, unit: 'MINUTES') {
+                    input message: 'Are you sure to sending notification?', ok: 'Yes', parameters: [
+                        booleanParam name: 'sendNotificationEnable', defaultValue: true
+                    ]
+                }
+                script {
+                    if (sendNotificationEnable) {
+                        println('Sending notifications............')
+                        println('Notifications have been sent')
+                    }
+                }
+            }
+        }
+
         stage('Proccessing') {
             steps {
                 script {
