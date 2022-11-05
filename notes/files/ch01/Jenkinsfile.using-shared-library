@@ -1,0 +1,18 @@
+@Library("jenkins-shared-library")
+
+pipeline {
+    agent any
+    
+    stages {
+        stage('Send message') {
+            steps {
+                sendMessage {
+                    title 'Demo Title'
+                    content 'Demo Content'
+                    receiver 'Lana Chang'
+                    sender 'Kut Zhang'
+                }
+            }
+        }
+    }
+}
