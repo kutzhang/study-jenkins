@@ -38,16 +38,27 @@ pipeline {
             }
         }
 
-        stage('Proccessing') {
+        stage('Show Message') {
+            when {
+                expression {
+                    params.needShowMessage == true
+                }
+            }
+
             steps {
                 echo "Parameter message=${message}"
                 echo "${env.PROJECT_NAME} Processing by ${env.PROJECT_OWNER}....."
+            }
+        }
 
+        stage('Proccessing') {
+            steps {
                 script {
                     env.MAVEN_HOME = tool name: 'maven', type: 'maven'
                 }
                 echo "MAVEN_HOME: ${env.MAVEN_HOME}"
                 sh 'printenv'
+                sh 'mvn --version'
             }
         }
 
