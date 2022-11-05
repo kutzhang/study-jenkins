@@ -7,12 +7,12 @@ pipeline {
         stage('Send message') {
             steps {
                 echo 'hahahahahah'
-                // sendMessage {
-                //     title 'Demo Title'
-                //     content 'Demo Content'
-                //     receiver 'Lana Chang'
-                //     sender 'Kut Zhang'
-                // }
+                sendMessage {
+                    title 'Demo Title'
+                    content 'Demo Content'
+                    receiver 'Lana Chang'
+                    sender 'Kut Zhang'
+                }
             }
         }
     }
