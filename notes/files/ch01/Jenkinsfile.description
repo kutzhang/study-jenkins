@@ -12,6 +12,11 @@ pipeline {
         PROJECT_OWNER = 'Kut Zhang'
     }
 
+    parameters {
+        string name: 'message', defaultValue: 'show me the money', description: 'What the message you need to show?'
+        booleanParam name: 'needShowMessage', defaultValue: true, description: 'Do you need to show message on pipeline?'
+    }
+
     stages {
         stage('Complete') {
             steps {
