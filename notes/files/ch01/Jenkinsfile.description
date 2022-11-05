@@ -25,7 +25,7 @@ pipeline {
         stage('Proccessing') {
             steps {
                 script {
-                    def mavenHome = tools 'maven'
+                    def mavenHome = tool name: 'maven', type: 'maven'
                 }
                 echo "MAVEN_HOME: ${mavenHome}"
             }
