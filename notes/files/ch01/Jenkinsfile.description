@@ -31,8 +31,8 @@ pipeline {
                     // for (def entry in projectProperties) {
                     //     env[entry.key] = entry.value
                     // }
-                    projectProperties.forEach {key, value -> 
-                        env[key] = value
+                    projectProperties.each { entry -> 
+                        env[entry.key] = entry.value
                     }
                 }
             }
