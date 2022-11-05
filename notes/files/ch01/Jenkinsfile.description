@@ -28,6 +28,9 @@ pipeline {
                 script {
                     def projectProperties = readProperties file: './notes/files/ch01/env.properties'
                     println(projectProperties)
+                    projectProperties.forEach { key, value ->
+                        env[key] = value
+                    }
                 }
             }
         }
