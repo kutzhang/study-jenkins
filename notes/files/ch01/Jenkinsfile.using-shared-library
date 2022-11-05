@@ -10,7 +10,12 @@ pipeline {
     stages {
         stage('Send message') {
             steps {
-                echo 'hahahahahah'
+                addReportItem 'Building.....'
+                addReportItem 'Package......'
+                addReportItem 'Storing......'
+                addReportItem 'Complete'
+                generateReport()
+                
                 sendMessage {
                     title 'Demo Title'
                     receiver 'Lana Chang'
