@@ -10,11 +10,11 @@ pipeline {
     stages {
         stage('Send message') {
             steps {
-                addReportItem 'Building.....'
-                addReportItem 'Package......'
-                addReportItem 'Storing......'
-                addReportItem 'Complete'
-                generateReport env
+                addReportItem this, 'Building.....'
+                addReportItem this, 'Package......'
+                addReportItem this, 'Storing......'
+                addReportItem this, 'Complete'
+                generateReport this, env
                 publishHTML(target: [
                     allowMissing: true, 
                     alwaysLinkToLastBuild: true, 
