@@ -76,13 +76,41 @@ pipeline {
         }
 
         stage('Proccessing') {
-            steps {
-                script {
-                    env.MAVEN_HOME = tool name: 'maven', type: 'maven'
+            failFast true
+            parallel {
+                stage('Build Package') {
+                    steps {
+                        script {
+                            env.MAVEN_HOME = tool name: 'maven', type: 'maven'
+                        }
+                        echo "MAVEN_HOME: ${env.MAVEN_HOME}"
+                        sh 'printenv'
+                        sh 'mvn --version'
+
+                        echo 'Starting build package.......'
+                        sleep(45)
+                        echo 'Build package complete'
+                    }
                 }
-                echo "MAVEN_HOME: ${env.MAVEN_HOME}"
-                sh 'printenv'
-                sh 'mvn --version'
+
+                stage('Code Scan') {
+                    steps {
+                        echo 'Starting code scan.......'
+                        sleep(30)
+                        echo 'Code scan complete'
+                    }
+                }
+
+                stage('Code Coverage') {
+                    steps {
+                        echo 'Starting code coverage.......'
+                        sleep(20)
+                        echo 'Code coverage complete'
+                    }
+                }
+            }
+            steps {
+                
             }
         }
 
