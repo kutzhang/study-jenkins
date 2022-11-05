@@ -28,8 +28,8 @@ pipeline {
                 script {
                     def projectProperties = readProperties file: './notes/files/ch01/env.properties'
                     println(projectProperties)
-                    projectProperties.each { entry ->
-                        env[entry.getKey()] = entry.getValue()
+                    for (def entry in mapToList(map)) {
+                        env[entry.key] = entry.value
                     }
                 }
             }
