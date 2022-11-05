@@ -15,7 +15,14 @@ pipeline {
                 addReportItem 'Storing......'
                 addReportItem 'Complete'
                 generateReport()
-                publishHTML allowMissing: true, alwaysLinkToLastBuild: true, keepAll: false, reportDir: './', reportFiles: 'report.html', reportName: '测试报告', reportTitles: '测试报告'
+                publishHTML(target: [
+                    allowMissing: true, 
+                    alwaysLinkToLastBuild: true, 
+                    keepAll: false, 
+                    reportDir: './report', 
+                    reportFiles: 'report.html', 
+                    reportName: 'xcode report', 
+                    reportTitles: 'ycode report'])
 
 
                 sendMessage {
